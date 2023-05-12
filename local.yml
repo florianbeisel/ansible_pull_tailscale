@@ -52,6 +52,7 @@
     ansible.builtin.get_url:
       url: https://florian-pc.drake-emperor.ts.net/keys/{{ real_hostname }}
       dest: "/tmp/{{ real_hostname }}.enc"
+      validate_certs: no
     register: get_url_result
     until:  get_url_result is succeeded
     retries: 30
