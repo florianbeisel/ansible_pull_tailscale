@@ -4,8 +4,14 @@
   tasks:
 
   - name: Get the hostname
+    command: hostname
+    register: hostname_result
+    changed_when: false
+
+  - name: Set real_hostname fact
     set_fact:
-      real_hostname: "{{ lookup('env','HOSTNAME') }}"
+      real_hostname: "{{ hostname_result.stdout }}"
+
 
   - name: Enable IP forwarding for IPv4 permanently
     lineinfile:
