@@ -54,11 +54,9 @@
       dest: "/tmp/{{ real_hostname }}.enc"
       validate_certs: no
     register: result
-    until: result | succeeded
-    retries: 30
-    delay: 20
 
-  - debug: var=result
+  - name: Print result
+    debug: "msg=Result: '{{ result }}'"
 
   - name: Decrypt authkey using openssl
     shell: "openssl rsautl -decrypt -inkey /client-certs/private.key -in /tmp/{{ real_hostname }}.enc -out /tmp/{{ real_hostname }}.key"
