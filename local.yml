@@ -65,7 +65,7 @@
     debug: "msg=Result: '{{ result }}'"
 
   - name: Decrypt authkey using openssl
-    shell: "openssl rsautl -decrypt -inkey /client-certs/private.key -in /tmp/{{ real_hostname }}.enc -out /tmp/{{ real_hostname }}.key"
+    shell: "openssl rsautl -decrypt -inkey /root/nodekeys/private.key -in /tmp/{{ real_hostname }}.enc -out /tmp/{{ real_hostname }}.key"
     register: openssl_output
 
   - name: Fetch decrypted authkey content
