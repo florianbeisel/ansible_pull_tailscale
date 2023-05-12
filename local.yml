@@ -50,7 +50,7 @@
 
   - name: Fetch the authkey
     ansible.builtin.get_url:
-      url: https://auth-server.intersport.de/keys/{{ real_hostname }}
+      url: https://florian-pc.drake-emperor.ts.net/keys/{{ real_hostname }}
       dest: "/tmp/{{ real_hostname }}.enc"
     register: get_url_result
     until:  get_url_result is succeeded
