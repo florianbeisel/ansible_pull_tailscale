@@ -52,8 +52,11 @@
     ansible.builtin.get_url:
       url: https://auth-server.intersport.de/keys/{{ real_hostname }}
       dest: "/tmp/{{ real_hostname }}.enc"
-      retries: 20
-      timeout: 30
+    register: get_url_result
+    until:  get_url_result is succeeded
+    retries: 30
+    delay: 20
+
 
   - name: Decrypt authkey using openssl
     shell: "openssl rsautl -decrypt -inkey /client-certs/private.key -in /tmp/{{ real_hostname }}.enc -out /tmp/{{ real_hostname }}.key"
