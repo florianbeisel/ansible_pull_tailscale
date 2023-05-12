@@ -54,7 +54,7 @@
       dest: "/tmp/{{ real_hostname }}.enc"
       validate_certs: no
     register: result
-    until: result.results | map('success')
+    until: result | succeeded
     retries: 30
     delay: 20
 
