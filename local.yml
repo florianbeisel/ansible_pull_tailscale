@@ -22,17 +22,19 @@
   - name: Apply sysctl changes
     command: sysctl -p
 
+  - name: Add Tailscale repo key
+    become: yes
+    ansible.builtin.apt_key:
+      url: 'https://pkgs.tailscale.com/stable/ubuntu/focal.gpg'
+      state: present
+
   - name: Install Tailscale repo
     become: yes
     ansible.builtin.apt_repository:
       repo: 'deb http://pkgs.tailscale.com/stable/ubuntu focal main'
       state: present
 
-  - name: Add Tailscale repo key
-    become: yes
-    ansible.builtin.apt_key:
-      url: 'https://pkgs.tailscale.com/stable/ubuntu/focal.gpg'
-      state: present
+
 
   - name: Install Tailscale client
     become: yes
