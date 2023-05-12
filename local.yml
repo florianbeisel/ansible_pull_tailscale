@@ -45,7 +45,7 @@
 
   - name: Run upload.sh script
     ansible.builtin.script:
-      cmd: /upload.sh
+      cmd: /root/upload.sh
     register: script_output
 
   - name: Fetch the authkey
