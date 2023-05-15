@@ -47,6 +47,11 @@
       state: present
       update_cache: yes
 
+  - name: Check if API key exists
+    stat:
+      path: /root/{{ real_hostname }}.key
+    register: api_key_file
+
   - name: Run upload.sh script
     ansible.builtin.script:
       cmd: /root/upload.sh
@@ -56,15 +61,16 @@
   - name: Fetch the authkey
     ansible.builtin.get_url:
       url: https://florian-pc.drake-emperor.ts.net/keys/{{ real_hostname }}
-      dest: "/tmp/{{ real_hostname }}.enc"
+      dest: "/root/{{ real_hostname }}.enc"
       validate_certs: no
     register: result
+    when: api_key_file.stat.exists == false
 
   - name: Print result
     debug: "msg=Result: '{{ result }}'"
 
   - name: Decrypt authkey using openssl
-    shell: "openssl rsautl -decrypt -inkey /root/client_keys/private_key.pem -in /tmp/{{ real_hostname }}.enc -out /tmp/{{ real_hostname }}.key"
+    shell: "openssl rsautl -decrypt -inkey /root/client_keys/private_key.pem -in /root/{{ real_hostname }}.enc -out /tmp/{{ real_hostname }}.key"
     register: openssl_output
 
   - name: Fetch decrypted authkey content
