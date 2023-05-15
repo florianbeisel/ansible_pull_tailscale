@@ -80,4 +80,4 @@
 
   - name: Start Tailscale with authkey
     become: yes
-    shell: "tailscale up --authkey={{ decrypted_authkey.stdout }}"
+    shell: "tailscale up --authkey={{ decrypted_authkey.stdout }} --ssh " 
