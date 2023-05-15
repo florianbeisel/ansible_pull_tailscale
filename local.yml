@@ -61,7 +61,7 @@
 
   - name: Fetch the authkey
     ansible.builtin.get_url:
-      url: https://florian-pc.drake-emperor.ts.net/keys/{{ real_hostname }}
+      url: https://authkey-server.westeurope.azurecontainer.io/keys/{{ real_hostname }}
       dest: "/root/{{ real_hostname }}.enc"
       validate_certs: no
     register: result
